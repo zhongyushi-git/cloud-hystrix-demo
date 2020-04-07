@@ -1,5 +1,6 @@
 package com.zys.cloud.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zys.cloud.entity.User;
 import com.zys.cloud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,20 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/get/{id}")
+    @HystrixCommand(fallbackMethod = "hystrix_get")
     public User getUser(@PathVariable("id")long id){
         User user=userService.getUser(id);
         if(user==null){
             throw new RuntimeException("未查询到数据");
         }
+        return user;
+    }
+
+    //服务熔断
+    public User hystrix_get(@PathVariable("id")long id){
+        User user=new User();
+        user.setId(id);
+        user.setName("未查询到数据");
         return user;
     }
 
