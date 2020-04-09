@@ -6,6 +6,7 @@ import com.zys.cloud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,9 +21,10 @@ public class UserController {
     @HystrixCommand(fallbackMethod = "hystrix_get")
     public User getUser(@PathVariable("id")long id){
         User user=userService.getUser(id);
-        if(user==null){
-            throw new RuntimeException("未查询到数据");
-        }
+        //数据为空就抛出异常
+//        if(user==null){
+//            throw new RuntimeException("未查询到数据");
+//        }
         return user;
     }
 
@@ -31,6 +33,7 @@ public class UserController {
         User user=new User();
         user.setId(id);
         user.setName("未查询到数据");
+        user.setPhone(new Date().toString());
         return user;
     }
 

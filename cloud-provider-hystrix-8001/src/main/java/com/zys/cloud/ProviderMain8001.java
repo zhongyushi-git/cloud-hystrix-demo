@@ -16,6 +16,7 @@ public class ProviderMain8001 {
         SpringApplication.run(ProviderMain8001.class, args);
     }
 
+    //指定监控路径
     @Bean
     public ServletRegistrationBean getServlet(){
         HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();

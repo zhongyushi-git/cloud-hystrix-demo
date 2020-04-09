@@ -1,4 +1,4 @@
-package com.zys.cloud.service;
+package com.zys.cloud.serivce;
 
 import com.zys.cloud.entity.User;
 import feign.hystrix.FallbackFactory;
