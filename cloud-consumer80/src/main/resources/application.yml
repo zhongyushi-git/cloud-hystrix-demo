@@ -12,6 +12,9 @@ spring:
         service-name: ${spring.application.name}
 
 feign:
+  #开启服务降级
+  hystrix:
+    enabled: true
   client:
     config:
       #指定全局
